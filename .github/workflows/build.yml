@@ -15,19 +15,19 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # gradlew ഫയൽ ഇല്ലെങ്കിൽ അത് തനിയെ ഉണ്ടാക്കാൻ ഇത് സഹായിക്കും
       - name: Validate Gradle Wrapper or Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # പുതിയ ഗ്രാഡിൽ വെച്ച് നേരിട്ട് ബിൽഡ് ചെയ്യുന്നു
+      # കീ-സ്റ്റോർ ഫയൽ ഇല്ലെങ്കിലും ബിൽഡ് നടക്കാൻ വേണ്ടിയുള്ള കമാൻഡ്
       - name: Build with Gradle
-        run: gradle assembleDebug
+        run: gradle assembleDebug -Pandroid.injected.signing.store.file="" -Pandroid.injected.signing.store.password="" -Pandroid.injected.signing.key.alias="" -Pandroid.injected.signing.key.password=""
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+
 
 
       
