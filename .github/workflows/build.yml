@@ -15,16 +15,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # gradlew റൺ ചെയ്യാനുള്ള പെർമിഷൻ നൽകുന്നു
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      # gradlew ഫയൽ ഇല്ലെങ്കിൽ അത് തനിയെ ഉണ്ടാക്കാൻ ഇത് സഹായിക്കും
+      - name: Validate Gradle Wrapper or Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
+      # പുതിയ ഗ്രാഡിൽ വെച്ച് നേരിട്ട് ബിൽഡ് ചെയ്യുന്നു
       - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+
+
+      
+
+
+      
+         
+          
 
