@@ -1,0 +1,6 @@
+{
+  "name": "Free Fire Optimizer",
+  "description": "Ultra lag and ping fixer with advanced recoil coaching sensitivity presets and a real background boost floating window optimized specifically for Vivo T2x 5G.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
