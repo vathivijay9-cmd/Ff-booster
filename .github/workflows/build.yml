@@ -18,15 +18,12 @@ jobs:
       - name: Validate Gradle Wrapper or Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # .base64 ഫയലിനെ ഒറിജിനൽ debug.keystore ഫയൽ ആക്കി മാറ്റുന്നു
       - name: Decode Keystore
         run: |
           base64 -d debug.keystore.base64 > debug.keystore
           mkdir -p ~/.gradle/daemon/9.5.1
           cp debug.keystore ~/.gradle/daemon/9.5.1/
-          cp debug.keystore ./
 
-      # ആപ്പ് ബിൽഡ് ചെയ്യുന്നു
       - name: Build with Gradle
         run: gradle assembleDebug
 
@@ -35,6 +32,7 @@ jobs:
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+
 
 
 
