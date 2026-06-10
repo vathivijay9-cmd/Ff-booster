@@ -18,15 +18,24 @@ jobs:
       - name: Validate Gradle Wrapper or Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # കീ-സ്റ്റോർ ഫയൽ ഇല്ലെങ്കിലും ബിൽഡ് നടക്കാൻ വേണ്ടിയുള്ള കമാൻഡ്
+      # .base64 ഫയലിനെ ഒറിജിനൽ debug.keystore ഫയൽ ആക്കി മാറ്റുന്നു
+      - name: Decode Keystore
+        run: |
+          base64 -d debug.keystore.base64 > debug.keystore
+          mkdir -p ~/.gradle/daemon/9.5.1
+          cp debug.keystore ~/.gradle/daemon/9.5.1/
+          cp debug.keystore ./
+
+      # ആപ്പ് ബിൽഡ് ചെയ്യുന്നു
       - name: Build with Gradle
-        run: gradle assembleDebug -Pandroid.injected.signing.store.file="" -Pandroid.injected.signing.store.password="" -Pandroid.injected.signing.key.alias="" -Pandroid.injected.signing.key.password=""
+        run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+
 
 
 
